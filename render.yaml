@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: music-api
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: CACHE_TTL
+        value: "3600000"
+      - key: RATE_LIMIT_POINTS
+        value: "100"
+      - key: RATE_LIMIT_DURATION
+        value: "60"
+      - key: LOG_LEVEL
+        value: "info"
+    disk:
+      name: music-api-data
+      mountPath: /data
+      sizeGB: 1
